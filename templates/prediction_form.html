@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Disease Prediction</title>
+</head>
+<body>
+<h1 class="h3 mb-4 text-gray-800">Heart Disease Prediction</h1>
+
+<form action="/predict" method="post">
+    <!-- Text Fields -->
+    <div class="form-group">
+        <label for="field1">Age:</label>
+        <input type="text" class="form-control" id="field1" name="age" required>
+    </div>
+    <div class="form-group">
+        <label for="spinner1">Sex:</label>
+        <label for="spinner1">M: Male(1) / F: Female(0)</label>
+        <select class="form-control" id="spinner1" name="sex_selection">
+            <option value="1">1</option>
+            <option value="0">0</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="spinner2">Chest Pain Type:</label>
+        <label for="spinner2">ASY: Asymptomatic(0) / ATA: Atypical Angina(1) / NAP: Non-Anginal Pain(2) / TA: Typical Angina(3)</label>
+        <select class="form-control" id="spinner2" name="pain_type">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="field2">Resting BP:</label>
+        <input type="text" class="form-control" id="field2" name="resting_bp" required>
+    </div>
+    <div class="form-group">
+        <label for="field3">Cholesterol:</label>
+        <input type="text" class="form-control" id="field3" name="cholesterol" required>
+    </div>
+    <div class="form-group">
+        <label for="spinner3">Fasting BS:</label>
+        <label for="spinner3">1: If Fasting BS > 120 mg/dL / 0: Otherwise</label>
+        <select class="form-control" id="spinner3" name="fasting_bs">
+            <option value="1">1</option>
+            <option value="0">0</option>
+        </select>
+    </div>
+    <div class="form-group">
+    <label for="spinner4">Resting ECG:</label>
+    <label for="spinner4">LVH: Showing Probable or Definite Left Ventricular Hypertrophy(0) / Normal: Normal(1) / ST: Having ST-T Wave Abnormality(2)</label>
+    <select class="form-control" id="spinner4" name="resting_ecg">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>
+    </div>
+    <div class="form-group">
+        <label for="field4">Max HR:</label>
+        <input type="text" class="form-control" id="field4" name="max_hr" required>
+    </div>
+    <div class="form-group">
+        <label for="spinner5">Exercise Angina:</label>
+        <label for="spinner5">N: No(0) / Y: Yes(1)</label>
+        <select class="form-control" id="spinner5" name="exercise_angina">
+            <option value="0">0</option>
+            <option value="1">1</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="field5">Old Peak:</label>
+        <input type="text" class="form-control" id="field5" name="oldpeak" required>
+    </div>
+    <div class="form-group">
+        <label for="spinner6">ST Slope:</label>
+        <label for="spinner6">Down: Downsloping(0) / Flat: Flat(1) / Up: Upsloping(2)</label>
+        <select class="form-control" id="spinner6" name="st_slope">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+    </div>
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<!-- Display the prediction result here -->
+<div id="prediction-result">
+    <!-- The prediction result will be displayed here -->
+</div>
+</body>
+
+<script>
+    // This script will be used to update the prediction result in the 'prediction-result' div.
+    document.addEventListener("DOMContentLoaded", function() {
+        const predictionResultDiv = document.getElementById("prediction-result");
+
+        // The prediction result will be passed to the template as 'result'.
+        // You can use the following code to update the content based on the actual prediction result.
+        const result = "{{ result }}";  // This will be replaced by Flask with the actual result.
+
+        // You can check the result and update the content accordingly.
+        if (result === "Positive") {
+            predictionResultDiv.textContent = "Prediction Result: Positive (Heart Disease Detected)";
+        } else if (result === "Negative") {
+            predictionResultDiv.textContent = "Prediction Result: Negative (No Heart Disease Detected)";
+        } else {
+            predictionResultDiv.textContent = "Prediction Result: Unknown";
+        }
+    });
+</script>
+</html>
