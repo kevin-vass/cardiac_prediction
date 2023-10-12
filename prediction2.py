@@ -28,13 +28,14 @@ def predict():
     st_slope = float(request.form.get('st_slope'))
 
     # Make a prediction using your model
-    prediction = model.predict([[age, sex, pain_type, resting_bp, cholesterol, fasting_bs, resting_ecg, max_hr, exercise_angina, oldpeak, st_slope]])
+    prediction_probabilities = model.predict_proba([[age, sex, pain_type, resting_bp, cholesterol, fasting_bs, resting_ecg, max_hr, exercise_angina, oldpeak, st_slope]])
 
-    # Convert the prediction to a meaningful result (e.g., "Positive" or "Negative")
-    result = "Positive" if prediction[0] == 1 else "Negative"
+    # Convert the prediction probabilities to a percentage
+    positive_probability = prediction_probabilities[0][1] * 100
 
     # Pass the result to the template for rendering
-    return render_template('prediction_form.html', result=result)
+    return render_template('prediction_form.html', positive_probability=positive_probability)
 
 if __name__ == '__main__':
     app.run(debug=True)
+

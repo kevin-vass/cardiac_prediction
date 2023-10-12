@@ -34,12 +34,14 @@ def predict():
     st_slope = float(data['st_slope'])
 
     prediction = model.predict([[age, sex, pain_type, resting_bp, cholesterol, fasting_bs, resting_ecg, max_hr, exercise_angina, oldpeak, st_slope]])
+    prediction_probabilities = model.predict_proba([[age, sex, pain_type, resting_bp, cholesterol, fasting_bs, resting_ecg, max_hr, exercise_angina, oldpeak, st_slope]])
 
     # Convert the prediction to a meaningful result (e.g., "Positive" or "Negative")
     result = "Positive" if prediction[0] == 1 else "Negative"
+    positive_probability = prediction_probabilities[0][1] * 100
 
     # Return the prediction result as JSON
-    return jsonify({'result': result})
+    return jsonify({'result': result, 'probability_positive': positive_probability})
 
 if __name__ == '__main__':
     app.run(debug=True)
